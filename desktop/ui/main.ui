@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>901</width>
+    <height>605</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>901</width>
+    <height>605</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>BiblioOrg | Inicio</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLineEdit" name="searchtxt"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="resetbtn">
+        <property name="text">
+         <string>X</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="codelabel">
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Código</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="booklabel">
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Libro</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QLabel" name="authorlabel">
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Autor</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLineEdit" name="codetxt"/>
+      </item>
+      <item row="1" column="1" colspan="4">
+       <widget class="QLineEdit" name="booktxt"/>
+      </item>
+      <item row="1" column="5" colspan="2">
+       <widget class="QLineEdit" name="authortxt"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="classificationlabel">
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Clasificación</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLabel" name="shelflabel">
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Estante</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLabel" name="rowlabel">
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Fila</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="4">
+       <widget class="QLabel" name="numberlabel">
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Cantidad</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="6">
+       <widget class="QLabel" name="stocklabel">
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Stock</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QLineEdit" name="classificationtxt"/>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLineEdit" name="shelftxt"/>
+      </item>
+      <item row="3" column="3">
+       <widget class="QLineEdit" name="rowtxt"/>
+      </item>
+      <item row="3" column="4" colspan="2">
+       <widget class="QLineEdit" name="numbertxt"/>
+      </item>
+      <item row="3" column="6">
+       <widget class="QLineEdit" name="stocktxt"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QTableView" name="tableView"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>901</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuAyuda">
+    <property name="title">
+     <string>Ayuda</string>
+    </property>
+    <addaction name="actionMapa_2"/>
+    <addaction name="actionRecomendaciones"/>
+    <addaction name="separator"/>
+    <addaction name="actionContacto"/>
+   </widget>
+   <widget class="QMenu" name="menuLista_de_Lectura">
+    <property name="title">
+     <string>Lista de Lectura</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuAdministrador">
+    <property name="title">
+     <string>Administrador</string>
+    </property>
+   </widget>
+   <addaction name="menuAyuda"/>
+   <addaction name="menuLista_de_Lectura"/>
+   <addaction name="menuAdministrador"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionMapa">
+   <property name="text">
+    <string>Mapa</string>
+   </property>
+  </action>
+  <action name="actionMapa_2">
+   <property name="text">
+    <string>Mapa</string>
+   </property>
+  </action>
+  <action name="actionRecomendaciones">
+   <property name="text">
+    <string>Recomendaciones</string>
+   </property>
+  </action>
+  <action name="actionContacto">
+   <property name="text">
+    <string>Contacto</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
