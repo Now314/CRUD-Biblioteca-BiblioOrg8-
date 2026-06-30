@@ -3,7 +3,7 @@
 from fastapi import FastAPI
 from sqlalchemy import text
 
-from database.session import engine
+from app.database.session import engine
 
 app = FastAPI()
 
