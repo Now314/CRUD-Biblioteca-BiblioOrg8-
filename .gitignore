@@ -19,12 +19,6 @@ env/
 ENV/
 
 # =========================
-# uv
-# =========================
-# Mantener uv.lock versionado para reproducibilidad
-# NO agregar uv.lock aquí
-
-# =========================
 # Variables de entorno
 # =========================
 .env
@@ -96,3 +90,8 @@ dist/
 # =========================
 *.db
 *.sqlite3
+
+# =========================
+# tests
+# =========================
+*tests/
