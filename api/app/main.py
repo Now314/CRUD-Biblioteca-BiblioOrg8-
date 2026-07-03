@@ -2,12 +2,12 @@
 
 from fastapi import FastAPI
 from tests.test_router import router as test
-from app.routers.main_router import router as mainw
+from app.routers.main_router import router as main
 
 app = FastAPI()
 
 app.include_router(test)
-app.include_router(mainw)
+app.include_router(main)
 
 @app.get("/")
 def home():
