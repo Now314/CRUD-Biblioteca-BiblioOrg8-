@@ -1,12 +1,11 @@
 """Código Principal del API para BiblioOrg y su Base de Datos PostgreSQL."""
 
 from fastapi import FastAPI
-from tests.test_router import router as test
+from tests.test_router import router as tests
 from app.routers.main_router import router as main
 
 app = FastAPI()
 
-app.include_router(test)
 app.include_router(main)
 
 @app.get("/")

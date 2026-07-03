@@ -1,10 +1,10 @@
 """Routers para Ventana Principal"""
 
 from fastapi import APIRouter
-from app.services.main_service import get_principal
+from app.services.main_service import get_principal_table
 
 router = APIRouter(prefix="/main", tags=["main"])
 
 @router.get("/principal")
 def get_principal_data():
-    return get_principal()
+    return get_principal_table()

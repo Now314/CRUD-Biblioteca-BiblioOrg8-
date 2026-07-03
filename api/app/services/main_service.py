@@ -1,12 +1,8 @@
 """Services para Ventana Principal"""
 
-from sqlalchemy import text
-from app.database.session import SessionLocal
+from app.services.database_service import DatabaseService
 
-def get_principal():
-    db = SessionLocal()
-    try:
-        table = db.execute(text("SELECT * from principal"))
-        return table.mappings().all()
-    finally:
-        db.close()
+def get_principal_table():
+    return DatabaseService.fetch_all(
+        "SELECT * FROM principal"
+    )
