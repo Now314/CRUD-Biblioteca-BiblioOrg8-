@@ -1,9 +1,13 @@
+"""Conexión de la app desktop con la API."""
+
 import requests
 
+# URL general de la API.
 API_URL = "https://biblioorg.onrender.com"
 
-
 def get(endpoint: str):
+    """Devuelve una URL de la API según sea el caso."""
+
     url = f"{API_URL}{endpoint}"
     print(f"Solicitando: {url}")
 

@@ -10,9 +10,6 @@ class MainController(QMainWindow):
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.initialize()
-
-    def initialize(self):
         self.setWindowTitle("BiblioOrg8")
         self.load_data()
 
@@ -20,8 +17,9 @@ class MainController(QMainWindow):
 
         data = get("/main/principal")
         if data is None:
-            print("No se pudo obtener información del servidor.")
+            print("No se pudo obtener la información del servidor.")
             return
+
         self.fill_table(data)
 
     def fill_table(self, data):
