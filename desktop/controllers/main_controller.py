@@ -44,7 +44,7 @@ class MainController(QMainWindow, BaseController):
 
     def load_data(self):
 
-        data = get("/main/principal")
+        data = get("/tables/principal")
 
         if data is None:
             self.show_error(self,"No se pudo obtener información del servidor.")
