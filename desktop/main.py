@@ -1,4 +1,5 @@
 import sys
+import resources_rc
 from PySide6.QtWidgets import QApplication
 from manager.WindowManager import WindowManager
 

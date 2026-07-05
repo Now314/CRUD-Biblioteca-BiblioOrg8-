@@ -6,3 +6,8 @@ def get_principal_table():
     return DatabaseService.fetch_all(
         "SELECT * FROM principal"
     )
+
+def get_prestamos_table():
+    return DatabaseService.fetch_all(
+        "SELECT * FROM prestamos"
+    )

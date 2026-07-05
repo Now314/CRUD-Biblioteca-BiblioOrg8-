@@ -1,18 +1,19 @@
+from ui.ui_loans import Ui_LoansWindow
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QMainWindow
-from ui.ui_main import Ui_MainWindow
-from services.api_client import get
 from controllers.base_controller import BaseController
+from services.api_client import get
 
-class MainController(QMainWindow, BaseController):
+
+class LoansController(QMainWindow, BaseController):
 
     def __init__(self, manager):
         super().__init__()
-
         self.manager = manager
-        self.ui = Ui_MainWindow()
+
+        self.ui = Ui_LoansWindow()
         self.ui.setupUi(self)
-        self.setWindowTitle("BiblioOrg8")
+        self.setWindowTitle("Prestamos|BiblioOrg8")
         self.setWindowIcon(
             QIcon(":/assets/logo/logo.png")
         )
@@ -29,13 +30,6 @@ class MainController(QMainWindow, BaseController):
 
         self.ui.resetbtn.clicked.connect(self.clear_search)
 
-        self.admin_window = None
-
-        self.ui.actionPanel_de_Admin.triggered.connect(self.go_admin)
-
-        self.ui.actionPanel_Lista_de_Lecturas.triggered.connect(self.go_lstlecturas)
-
-
     def connect_table(self):
         self.ui.tableView.selectionModel().selectionChanged.connect(
             self.on_row_selected
@@ -46,10 +40,10 @@ class MainController(QMainWindow, BaseController):
 
     def load_data(self):
 
-        data = get("/tables/principal")
+        data = get("/tables/prestamos")
 
         if data is None:
-            self.show_error(self,"No se pudo obtener información del servidor.")
+            self.show_error(self, "No se pudo obtener información del servidor.")
             return
 
         self.ui.tableView.setProperty(
@@ -82,12 +76,8 @@ class MainController(QMainWindow, BaseController):
             {
                 "codigo": self.ui.codetxt,
                 "libro": self.ui.booktxt,
-                "autor": self.ui.authortxt,
-                "clasificacion": self.ui.classificationtxt,
-                "estante": self.ui.shelftxt,
-                "fila": self.ui.rowtxt,
-                "cantidad_total": self.ui.numbertxt,
-                "stock": self.ui.stocktxt
+                "nombre": self.ui.nametxt,
+                "apellido": self.ui.lastnametxt,
             }
         )
 
@@ -110,9 +100,3 @@ class MainController(QMainWindow, BaseController):
         )
 
         self.connect_table()
-
-    def go_admin(self):
-        self.manager.show_admin()
-
-    def go_lstlecturas(self):
-        self.manager.show_lstlecturas()
