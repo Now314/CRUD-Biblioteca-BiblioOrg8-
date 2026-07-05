@@ -186,15 +186,17 @@
     <property name="title">
      <string>Lista de Lectura</string>
     </property>
+    <addaction name="actionPanel_Lista_de_Lecturas"/>
    </widget>
-   <widget class="QMenu" name="menuAdministrador">
+   <widget class="QMenu" name="menuAdmin">
     <property name="title">
-     <string>Administrador</string>
+     <string>Admin</string>
     </property>
+    <addaction name="actionPanel_de_Admin"/>
    </widget>
    <addaction name="menuAyuda"/>
    <addaction name="menuLista_de_Lectura"/>
-   <addaction name="menuAdministrador"/>
+   <addaction name="menuAdmin"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionMapa">
@@ -215,6 +217,16 @@
   <action name="actionContacto">
    <property name="text">
     <string>Contacto</string>
+   </property>
+  </action>
+  <action name="actionPanel_Lista_de_Lecturas">
+   <property name="text">
+    <string>Panel Lista de Lecturas</string>
+   </property>
+  </action>
+  <action name="actionPanel_de_Admin">
+   <property name="text">
+    <string>Panel de Admin</string>
    </property>
   </action>
  </widget>

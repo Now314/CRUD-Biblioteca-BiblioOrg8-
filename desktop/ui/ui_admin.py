@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main.ui'
+## Form generated from reading UI file 'admin.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.11.1
 ##
@@ -21,25 +21,23 @@ from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QHeaderVi
     QMenuBar, QPushButton, QSizePolicy, QStatusBar,
     QTableView, QVBoxLayout, QWidget)
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        if not MainWindow.objectName():
-            MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(901, 605)
-        MainWindow.setMinimumSize(QSize(901, 605))
-        self.actionMapa = QAction(MainWindow)
+class Ui_AdminWindow(object):
+    def setupUi(self, AdminWindow):
+        if not AdminWindow.objectName():
+            AdminWindow.setObjectName(u"AdminWindow")
+        AdminWindow.resize(901, 605)
+        AdminWindow.setMinimumSize(QSize(901, 605))
+        self.actionMapa = QAction(AdminWindow)
         self.actionMapa.setObjectName(u"actionMapa")
-        self.actionMapa_2 = QAction(MainWindow)
+        self.actionREcomendaciones = QAction(AdminWindow)
+        self.actionREcomendaciones.setObjectName(u"actionREcomendaciones")
+        self.actionUsuarios = QAction(AdminWindow)
+        self.actionUsuarios.setObjectName(u"actionUsuarios")
+        self.actionMapa_2 = QAction(AdminWindow)
         self.actionMapa_2.setObjectName(u"actionMapa_2")
-        self.actionRecomendaciones = QAction(MainWindow)
-        self.actionRecomendaciones.setObjectName(u"actionRecomendaciones")
-        self.actionContacto = QAction(MainWindow)
+        self.actionContacto = QAction(AdminWindow)
         self.actionContacto.setObjectName(u"actionContacto")
-        self.actionPanel_Lista_de_Lecturas = QAction(MainWindow)
-        self.actionPanel_Lista_de_Lecturas.setObjectName(u"actionPanel_Lista_de_Lecturas")
-        self.actionPanel_de_Admin = QAction(MainWindow)
-        self.actionPanel_de_Admin.setObjectName(u"actionPanel_de_Admin")
-        self.centralwidget = QWidget(MainWindow)
+        self.centralwidget = QWidget(AdminWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -54,6 +52,16 @@ class Ui_MainWindow(object):
         self.resetbtn.setObjectName(u"resetbtn")
 
         self.horizontalLayout.addWidget(self.resetbtn)
+
+        self.newrequestbtn = QPushButton(self.centralwidget)
+        self.newrequestbtn.setObjectName(u"newrequestbtn")
+
+        self.horizontalLayout.addWidget(self.newrequestbtn)
+
+        self.loansbtn = QPushButton(self.centralwidget)
+        self.loansbtn.setObjectName(u"loansbtn")
+
+        self.horizontalLayout.addWidget(self.loansbtn)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout)
@@ -117,7 +125,7 @@ class Ui_MainWindow(object):
         self.numberlabel.setObjectName(u"numberlabel")
         self.numberlabel.setFont(font)
 
-        self.gridLayout.addWidget(self.numberlabel, 2, 4, 1, 1)
+        self.gridLayout.addWidget(self.numberlabel, 2, 4, 1, 2)
 
         self.stocklabel = QLabel(self.centralwidget)
         self.stocklabel.setObjectName(u"stocklabel")
@@ -158,55 +166,64 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.tableView)
 
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QMenuBar(MainWindow)
+        AdminWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QMenuBar(AdminWindow)
         self.menubar.setObjectName(u"menubar")
         self.menubar.setGeometry(QRect(0, 0, 901, 33))
         self.menuAyuda = QMenu(self.menubar)
         self.menuAyuda.setObjectName(u"menuAyuda")
-        self.menuLista_de_Lectura = QMenu(self.menubar)
-        self.menuLista_de_Lectura.setObjectName(u"menuLista_de_Lectura")
-        self.menuAdmin = QMenu(self.menubar)
-        self.menuAdmin.setObjectName(u"menuAdmin")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QStatusBar(MainWindow)
+        self.menuEditar_Lista_de_Lectura = QMenu(self.menubar)
+        self.menuEditar_Lista_de_Lectura.setObjectName(u"menuEditar_Lista_de_Lectura")
+        self.menuEditar_Registro_Principal = QMenu(self.menubar)
+        self.menuEditar_Registro_Principal.setObjectName(u"menuEditar_Registro_Principal")
+        self.menuHistorial = QMenu(self.menubar)
+        self.menuHistorial.setObjectName(u"menuHistorial")
+        self.menuObservaciones = QMenu(self.menubar)
+        self.menuObservaciones.setObjectName(u"menuObservaciones")
+        AdminWindow.setMenuBar(self.menubar)
+        self.statusbar = QStatusBar(AdminWindow)
         self.statusbar.setObjectName(u"statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        AdminWindow.setStatusBar(self.statusbar)
 
         self.menubar.addAction(self.menuAyuda.menuAction())
-        self.menubar.addAction(self.menuLista_de_Lectura.menuAction())
-        self.menubar.addAction(self.menuAdmin.menuAction())
+        self.menubar.addAction(self.menuEditar_Lista_de_Lectura.menuAction())
+        self.menubar.addAction(self.menuEditar_Registro_Principal.menuAction())
+        self.menubar.addAction(self.menuHistorial.menuAction())
+        self.menubar.addAction(self.menuObservaciones.menuAction())
+        self.menuAyuda.addAction(self.actionMapa)
         self.menuAyuda.addAction(self.actionMapa_2)
-        self.menuAyuda.addAction(self.actionRecomendaciones)
+        self.menuAyuda.addAction(self.actionUsuarios)
         self.menuAyuda.addSeparator()
+        self.menuAyuda.addAction(self.actionREcomendaciones)
         self.menuAyuda.addAction(self.actionContacto)
-        self.menuLista_de_Lectura.addAction(self.actionPanel_Lista_de_Lecturas)
-        self.menuAdmin.addAction(self.actionPanel_de_Admin)
 
-        self.retranslateUi(MainWindow)
+        self.retranslateUi(AdminWindow)
 
-        QMetaObject.connectSlotsByName(MainWindow)
+        QMetaObject.connectSlotsByName(AdminWindow)
     # setupUi
 
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"BiblioOrg | Inicio", None))
-        self.actionMapa.setText(QCoreApplication.translate("MainWindow", u"Mapa", None))
-        self.actionMapa_2.setText(QCoreApplication.translate("MainWindow", u"Mapa", None))
-        self.actionRecomendaciones.setText(QCoreApplication.translate("MainWindow", u"Recomendaciones", None))
-        self.actionContacto.setText(QCoreApplication.translate("MainWindow", u"Contacto", None))
-        self.actionPanel_Lista_de_Lecturas.setText(QCoreApplication.translate("MainWindow", u"Panel Lista de Lecturas", None))
-        self.actionPanel_de_Admin.setText(QCoreApplication.translate("MainWindow", u"Panel de Admin", None))
-        self.resetbtn.setText(QCoreApplication.translate("MainWindow", u"X", None))
-        self.codelabel.setText(QCoreApplication.translate("MainWindow", u"C\u00f3digo", None))
-        self.booklabel.setText(QCoreApplication.translate("MainWindow", u"Libro", None))
-        self.authorlabel.setText(QCoreApplication.translate("MainWindow", u"Autor", None))
-        self.classificationlabel.setText(QCoreApplication.translate("MainWindow", u"Clasificaci\u00f3n", None))
-        self.shelflabel.setText(QCoreApplication.translate("MainWindow", u"Estante", None))
-        self.rowlabel.setText(QCoreApplication.translate("MainWindow", u"Fila", None))
-        self.numberlabel.setText(QCoreApplication.translate("MainWindow", u"Cantidad", None))
-        self.stocklabel.setText(QCoreApplication.translate("MainWindow", u"Stock", None))
-        self.menuAyuda.setTitle(QCoreApplication.translate("MainWindow", u"Ayuda", None))
-        self.menuLista_de_Lectura.setTitle(QCoreApplication.translate("MainWindow", u"Lista de Lectura", None))
-        self.menuAdmin.setTitle(QCoreApplication.translate("MainWindow", u"Admin", None))
+    def retranslateUi(self, AdminWindow):
+        AdminWindow.setWindowTitle(QCoreApplication.translate("AdminWindow", u"BiblioOrg | Admin", None))
+        self.actionMapa.setText(QCoreApplication.translate("AdminWindow", u"Asistente de Inventario", None))
+        self.actionREcomendaciones.setText(QCoreApplication.translate("AdminWindow", u"Recomendaciones", None))
+        self.actionUsuarios.setText(QCoreApplication.translate("AdminWindow", u"Usuarios", None))
+        self.actionMapa_2.setText(QCoreApplication.translate("AdminWindow", u"Mapa", None))
+        self.actionContacto.setText(QCoreApplication.translate("AdminWindow", u"Contacto", None))
+        self.resetbtn.setText(QCoreApplication.translate("AdminWindow", u"X", None))
+        self.newrequestbtn.setText(QCoreApplication.translate("AdminWindow", u"Nueva Solicitud", None))
+        self.loansbtn.setText(QCoreApplication.translate("AdminWindow", u"Prestamos", None))
+        self.codelabel.setText(QCoreApplication.translate("AdminWindow", u"C\u00f3digo", None))
+        self.booklabel.setText(QCoreApplication.translate("AdminWindow", u"Libro", None))
+        self.authorlabel.setText(QCoreApplication.translate("AdminWindow", u"Autor", None))
+        self.classificationlabel.setText(QCoreApplication.translate("AdminWindow", u"Clasificaci\u00f3n", None))
+        self.shelflabel.setText(QCoreApplication.translate("AdminWindow", u"Estante", None))
+        self.rowlabel.setText(QCoreApplication.translate("AdminWindow", u"Fila", None))
+        self.numberlabel.setText(QCoreApplication.translate("AdminWindow", u"Cantidad", None))
+        self.stocklabel.setText(QCoreApplication.translate("AdminWindow", u"Stock", None))
+        self.menuAyuda.setTitle(QCoreApplication.translate("AdminWindow", u"Ayuda", None))
+        self.menuEditar_Lista_de_Lectura.setTitle(QCoreApplication.translate("AdminWindow", u"Editar Lista de Lectura", None))
+        self.menuEditar_Registro_Principal.setTitle(QCoreApplication.translate("AdminWindow", u"Editar Registro Principal", None))
+        self.menuHistorial.setTitle(QCoreApplication.translate("AdminWindow", u"Historial", None))
+        self.menuObservaciones.setTitle(QCoreApplication.translate("AdminWindow", u"Observaciones", None))
     # retranslateUi
 

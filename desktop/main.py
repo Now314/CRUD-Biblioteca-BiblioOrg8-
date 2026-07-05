@@ -1,18 +1,18 @@
 import sys
 from PySide6.QtWidgets import QApplication
-from controllers.main_controller import MainController
+from manager.WindowManager import WindowManager
+
 
 def main():
 
     app = QApplication(sys.argv)
 
-    app.setApplicationName("BiblioOrg8")
-    app.setOrganizationName("BiblioOrg")
+    manager = WindowManager()
 
-    window = MainController()
-    window.show()
+    manager.show_main()
 
     sys.exit(app.exec())
+
 
 if __name__ == "__main__":
     main()

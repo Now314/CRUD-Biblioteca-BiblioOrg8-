@@ -12,7 +12,7 @@ def get(endpoint: str):
     print(f"Solicitando: {url}")
 
     try:
-        response = requests.get(url, timeout=30)
+        response = requests.get(url, timeout=55)
         print(f"Status: {response.status_code}")
         response.raise_for_status()
         return response.json()

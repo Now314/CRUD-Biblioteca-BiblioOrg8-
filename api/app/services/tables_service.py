@@ -1,4 +1,4 @@
-"""Services para Ventana Principal"""
+"""Services para llamar y extraer tablas de la base de datos."""
 
 from app.services.database_service import DatabaseService
 
