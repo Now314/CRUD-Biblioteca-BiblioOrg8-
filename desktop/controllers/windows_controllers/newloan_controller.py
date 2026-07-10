@@ -52,7 +52,7 @@ class NewLoanController(QMainWindow):
             }
         )
 
-        success = CRUDService.create("/tables/prestamos", data)
+        success = CRUDService.create("/post_table/prestamos", data)
 
         if success:
             NotificationsUtility.show_info(self, "Préstamo registrado correctamente.")

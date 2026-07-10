@@ -2,7 +2,7 @@
 
 from fastapi import FastAPI
 from app.routers.get_table_router import router as get_tables
-from app.routers.post_table_router import post_table
+from app.routers.post_table_router import router as post_table
 
 app = FastAPI()
 
