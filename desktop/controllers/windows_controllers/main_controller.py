@@ -42,7 +42,7 @@ class MainController(QMainWindow, TablesController):
 
     def load_data(self):
 
-        data = get("/tables/principal")
+        data = get("/get_table/principal")
 
         if data is None:
             NotificationsUtility.show_error(
