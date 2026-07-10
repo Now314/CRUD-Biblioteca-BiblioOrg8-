@@ -1,38 +1,57 @@
-from controllers.main_controller import MainController
-from controllers.admin_controller import AdminController
-from controllers.lstlecturas_controller import LstLecturasController
-from controllers.loans_controller import LoansController
+from typing import Callable
+
+from PySide6.QtWidgets import QMainWindow
 
 
 class WindowManager:
-
     def __init__(self):
-        self.window = None
+        self.current_window: QMainWindow | None = None
+        self.history: list[QMainWindow] = []
 
-    def show_main(self):
-        if self.window:
-            self.window.close()
+    def start(self, controller: Callable[..., QMainWindow]) -> None:
+        self.current_window = controller(self)
 
-        self.window = MainController(self)
-        self.window.show()
+        if self.current_window is not None:
+            self.current_window.show()
 
-    def show_admin(self):
-        if self.window:
-            self.window.close()
+    def show(self, controller: Callable[..., QMainWindow]) -> None:
 
-        self.window = AdminController(self)
-        self.window.show()
+        previous = self.current_window
 
-    def show_lstlecturas(self):
-        if self.window:
-            self.window.close()
+        new_window = controller(self)
+        new_window.show()
 
-        self.window = LstLecturasController(self)
-        self.window.show()
+        if previous is not None:
+            self.history.append(previous)
+            previous.hide()
 
-    def show_loans(self):
-        if self.window:
-            self.window.close()
+        self.current_window = new_window
 
-        self.window = LoansController(self)
-        self.window.show()
+    def back(self) -> None:
+
+        if not self.history:
+            return
+
+        previous = self.history.pop()
+
+        previous.show()
+
+        if self.current_window is not None:
+            self.current_window.hide()
+
+        self.current_window = previous
+
+    def send_data(self, controller, data):
+        if self.current_window is not None:
+            self.history.append(self.current_window)
+
+        new_window = controller(self, data)
+        new_window.show()
+
+        if self.current_window is not None:
+            self.current_window.hide()
+
+        self.current_window = new_window
+
+    def clear_history(self) -> None:
+        self.history.clear()

@@ -51,17 +51,68 @@
     </item>
     <item>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="codelabel">
+      <item row="2" column="0">
+       <widget class="QLabel" name="classificationlabel">
         <property name="font">
          <font>
           <italic>true</italic>
          </font>
         </property>
         <property name="text">
-         <string>Código</string>
+         <string>Clasificación</string>
         </property>
        </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLabel" name="rowlabel">
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Fila</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="6">
+       <widget class="QLineEdit" name="stocktxt"/>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLineEdit" name="shelftxt"/>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLabel" name="shelflabel">
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Estante</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLineEdit" name="codetxt"/>
+      </item>
+      <item row="1" column="5" colspan="2">
+       <widget class="QLineEdit" name="authortxt"/>
+      </item>
+      <item row="2" column="4" colspan="2">
+       <widget class="QLabel" name="numberlabel">
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Cantidad</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QLineEdit" name="classificationtxt"/>
       </item>
       <item row="0" column="1">
        <widget class="QLabel" name="booklabel">
@@ -87,62 +138,11 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QLineEdit" name="codetxt"/>
+      <item row="3" column="3">
+       <widget class="QLineEdit" name="rowtxt"/>
       </item>
-      <item row="1" column="1" colspan="4">
-       <widget class="QLineEdit" name="booktxt"/>
-      </item>
-      <item row="1" column="5" colspan="2">
-       <widget class="QLineEdit" name="authortxt"/>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="classificationlabel">
-        <property name="font">
-         <font>
-          <italic>true</italic>
-         </font>
-        </property>
-        <property name="text">
-         <string>Clasificación</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <widget class="QLabel" name="shelflabel">
-        <property name="font">
-         <font>
-          <italic>true</italic>
-         </font>
-        </property>
-        <property name="text">
-         <string>Estante</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="3">
-       <widget class="QLabel" name="rowlabel">
-        <property name="font">
-         <font>
-          <italic>true</italic>
-         </font>
-        </property>
-        <property name="text">
-         <string>Fila</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="4" colspan="2">
-       <widget class="QLabel" name="numberlabel">
-        <property name="font">
-         <font>
-          <italic>true</italic>
-         </font>
-        </property>
-        <property name="text">
-         <string>Cantidad</string>
-        </property>
-       </widget>
+      <item row="3" column="4" colspan="2">
+       <widget class="QLineEdit" name="numbertxt"/>
       </item>
       <item row="2" column="6">
        <widget class="QLabel" name="stocklabel">
@@ -156,20 +156,20 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0" colspan="2">
-       <widget class="QLineEdit" name="classificationtxt"/>
+      <item row="0" column="0">
+       <widget class="QLabel" name="codelabel">
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Código</string>
+        </property>
+       </widget>
       </item>
-      <item row="3" column="2">
-       <widget class="QLineEdit" name="shelftxt"/>
-      </item>
-      <item row="3" column="3">
-       <widget class="QLineEdit" name="rowtxt"/>
-      </item>
-      <item row="3" column="4" colspan="2">
-       <widget class="QLineEdit" name="numbertxt"/>
-      </item>
-      <item row="3" column="6">
-       <widget class="QLineEdit" name="stocktxt"/>
+      <item row="1" column="1" colspan="4">
+       <widget class="QLineEdit" name="booktxt"/>
       </item>
      </layout>
     </item>
@@ -191,11 +191,11 @@
     <property name="title">
      <string>Ayuda</string>
     </property>
+    <addaction name="actionInventario"/>
     <addaction name="actionMapa"/>
-    <addaction name="actionMapa_2"/>
     <addaction name="actionUsuarios"/>
     <addaction name="separator"/>
-    <addaction name="actionREcomendaciones"/>
+    <addaction name="actionRecomendaciones"/>
     <addaction name="actionContacto"/>
    </widget>
    <widget class="QMenu" name="menuEditar_Lista_de_Lectura">
@@ -225,12 +225,12 @@
    <addaction name="menuObservaciones"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionMapa">
+  <action name="actionInventario">
    <property name="text">
     <string>Asistente de Inventario</string>
    </property>
   </action>
-  <action name="actionREcomendaciones">
+  <action name="actionRecomendaciones">
    <property name="text">
     <string>Recomendaciones</string>
    </property>
@@ -240,7 +240,7 @@
     <string>Usuarios</string>
    </property>
   </action>
-  <action name="actionMapa_2">
+  <action name="actionMapa">
    <property name="text">
     <string>Mapa</string>
    </property>

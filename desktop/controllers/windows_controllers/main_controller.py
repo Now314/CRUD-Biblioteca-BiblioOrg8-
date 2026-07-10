@@ -1,11 +1,18 @@
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QMainWindow
-from ui.ui_main import Ui_MainWindow
+
+from controllers.windows_controllers.admin_controller import AdminController
+from controllers.windows_controllers.lstlecturas_controller import LstLecturasController
+from controllers.utilities.tables_controller import TablesController
+from controllers.utilities.fields_utility import FieldsUtility
+from controllers.utilities.notifications_utility import NotificationsUtility
+
 from services.api_client import get
-from controllers.base_controller import BaseController
 
-class MainController(QMainWindow, BaseController):
+from ui.ui_main import Ui_MainWindow
 
+
+class MainController(QMainWindow, TablesController):
     def __init__(self, manager):
         super().__init__()
 
@@ -13,9 +20,7 @@ class MainController(QMainWindow, BaseController):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.setWindowTitle("BiblioOrg8")
-        self.setWindowIcon(
-            QIcon(":/assets/logo/logo.png")
-        )
+        self.setWindowIcon(QIcon(":/assets/logo/logo.png"))
 
         self.configure_table(self.ui.tableView)
 
@@ -35,40 +40,19 @@ class MainController(QMainWindow, BaseController):
 
         self.ui.actionPanel_Lista_de_Lecturas.triggered.connect(self.go_lstlecturas)
 
-
-    def connect_table(self):
-        self.ui.tableView.selectionModel().selectionChanged.connect(
-            self.on_row_selected
-        )
-
-        if self.ui.tableView.model().rowCount() > 0:
-            self.ui.tableView.selectRow(0)
-
     def load_data(self):
 
         data = get("/tables/principal")
 
         if data is None:
-            self.show_error(self,"No se pudo obtener información del servidor.")
+            NotificationsUtility.show_error(
+                self, "No se pudo obtener información del servidor."
+            )
             return
 
-        self.ui.tableView.setProperty(
-            "original_data",
-            data
+        self.initialize_table(
+            self.ui.tableView, data, self.on_row_selected, hidden_columns=["id"]
         )
-
-        self.ui.tableView.setProperty(
-            "table_columns",
-            list(data[0].keys())
-        )
-
-        self.load_table(
-            self.ui.tableView,
-            data,
-            hidden_columns=["id"]
-        )
-
-        self.connect_table()
 
     def on_row_selected(self):
 
@@ -77,7 +61,7 @@ class MainController(QMainWindow, BaseController):
         if data is None:
             return
 
-        self.load_fields(
+        FieldsUtility.load_fields(
             data,
             {
                 "codigo": self.ui.codetxt,
@@ -87,32 +71,27 @@ class MainController(QMainWindow, BaseController):
                 "estante": self.ui.shelftxt,
                 "fila": self.ui.rowtxt,
                 "cantidad_total": self.ui.numbertxt,
-                "stock": self.ui.stocktxt
-            }
+                "stock": self.ui.stocktxt,
+            },
         )
 
     def search(self, text):
 
         self.filter_table(
-            self.ui.tableView,
-            text,
-            hidden_columns=["id"]
+            self.ui.tableView, text, self.on_row_selected, hidden_columns=["id"]
         )
-
-        self.connect_table()
 
     def clear_search(self):
 
-        self.reset_table(
+        self.restore_table(
             self.ui.tableView,
             self.ui.searchtxt,
-            hidden_columns=["id"]
+            self.on_row_selected,
+            hidden_columns=["id"],
         )
 
-        self.connect_table()
-
     def go_admin(self):
-        self.manager.show_admin()
+        self.manager.show(AdminController)
 
     def go_lstlecturas(self):
-        self.manager.show_lstlecturas()
+        self.manager.show(LstLecturasController)
