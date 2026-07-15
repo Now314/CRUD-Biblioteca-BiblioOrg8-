@@ -39,7 +39,7 @@ class LoansController(QMainWindow, TablesController):
 
     def load_data(self):
 
-        data = get("/tables/prestamos")
+        data = get("/get_table/prestamos")
 
         if data is None:
             NotificationsUtility.show_error(

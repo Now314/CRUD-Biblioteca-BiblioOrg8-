@@ -2,6 +2,8 @@ from PySide6.QtCore import QDate
 from PySide6.QtGui import QIcon, QCloseEvent
 from PySide6.QtWidgets import QMainWindow
 
+from datetime import date
+
 from controllers.utilities.fields_utility import FieldsUtility
 from controllers.utilities.notifications_utility import NotificationsUtility
 from controllers.windows_controllers.loans_controller import LoansController
@@ -39,18 +41,26 @@ class NewLoanController(QMainWindow):
             },
         )
 
-        self.ui.dateEdit.setDate(QDate.currentDate())
+        self.ui.dateEdit.setDate(QDate.currentDate().addMonths(1))
+
+    from datetime import date
 
     def add_loan(self):
+
         data = FieldsUtility.get_fields(
             {
                 "codigo": self.ui.codetxt,
                 "libro": self.ui.booktxt,
                 "nombre": self.ui.nametxt,
                 "apellidos": self.ui.lastnametxt,
-                "fecha_salida": self.ui.dateEdit,
+                "fecha_devolucion": self.ui.dateEdit,
             }
         )
+
+        fecha_salida = date.today()
+
+        data["fecha_salida"] = fecha_salida.isoformat()
+        data["fecha_devolucion"] = data["fecha_devolucion"].isoformat()
 
         success = CRUDService.create("/post_table/prestamos", data)
 

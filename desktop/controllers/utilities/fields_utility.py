@@ -1,18 +1,25 @@
 """Utilidades para cargar y obtener datos desde widgets."""
+from datetime import date, datetime
 
-from PySide6.QtCore import QObject, QDate
+from PySide6.QtCore import QDate, QDateTime
+from PySide6.QtWidgets import (
+    QCheckBox,
+    QComboBox,
+    QDateEdit,
+    QDateTimeEdit,
+    QDoubleSpinBox,
+    QLineEdit,
+    QPlainTextEdit,
+    QSpinBox,
+    QTextEdit,
+)
 
 
-class FieldsUtility(QObject):
+class FieldsUtility:
     @staticmethod
     def load_fields(data: dict, fields: dict):
         """
         Carga valores de un diccionario en los widgets indicados.
-
-        El diccionario debe tener la forma:
-            {
-                "campo_bd": widget
-            }
 
         Widgets compatibles:
         - QLineEdit
@@ -22,47 +29,65 @@ class FieldsUtility(QObject):
         - QSpinBox
         - QDoubleSpinBox
         - QDateEdit
+        - QDateTimeEdit
         - QCheckBox
         """
 
         for field, widget in fields.items():
             value = data.get(field)
 
-            if value is None:
-                value = ""
+            # ---------- QLineEdit ----------
+            if isinstance(widget, QLineEdit):
+                widget.setText("" if value is None else str(value))
 
-            # QLineEdit
-            if hasattr(widget, "setText"):
-                widget.setText(str(value))
+            # ---------- QTextEdit / QPlainTextEdit ----------
+            elif isinstance(widget, (QTextEdit, QPlainTextEdit)):
+                widget.setPlainText("" if value is None else str(value))
 
-            # QTextEdit / QPlainTextEdit
-            elif hasattr(widget, "setPlainText"):
-                widget.setPlainText(str(value))
+            # ---------- QComboBox ----------
+            elif isinstance(widget, QComboBox):
+                widget.setCurrentText("" if value is None else str(value))
 
-            elif hasattr(widget, "setHtml"):
-                widget.setPlainText(str(value))
+            # ---------- QSpinBox ----------
+            elif isinstance(widget, QSpinBox):
+                if isinstance(value, (int, float)):
+                    widget.setValue(int(value))
+                else:
+                    widget.setValue(0)
 
-            # QComboBox
-            elif hasattr(widget, "setCurrentText"):
-                widget.setCurrentText(str(value))
+            # ---------- QDoubleSpinBox ----------
+            elif isinstance(widget, QDoubleSpinBox):
+                if isinstance(value, (int, float)):
+                    widget.setValue(float(value))
+                else:
+                    widget.setValue(0.0)
 
-            # QSpinBox / QDoubleSpinBox
-            elif hasattr(widget, "setValue") and isinstance(value, (int, float)):
-                widget.setValue(value)
+            # ---------- QDateEdit ----------
+            elif isinstance(widget, QDateEdit):
+                if isinstance(value, date):
+                    widget.setDate(QDate(value.year, value.month, value.day))
 
-            # QDateEdit
-            elif hasattr(widget, "setDate"):
-                if isinstance(value, QDate):
+                elif isinstance(value, str):
+                    qdate = QDate.fromString(value, "yyyy-MM-dd")
+
+                    if qdate.isValid():
+                        widget.setDate(qdate)
+
+                elif isinstance(value, QDate):
                     widget.setDate(value)
 
-                elif value:
-                    date = QDate.fromString(str(value), "yyyy-MM-dd")
+            # ---------- QDateTimeEdit ----------
+            elif isinstance(widget, QDateTimeEdit):
+                if isinstance(value, datetime):
+                    widget.setDateTime(
+                        QDateTime.fromSecsSinceEpoch(int(value.timestamp()))
+                    )
 
-                    if date.isValid():
-                        widget.setDate(date)
+                elif isinstance(value, QDateTime):
+                    widget.setDateTime(value)
 
-            # QCheckBox
-            elif hasattr(widget, "setChecked"):
+            # ---------- QCheckBox ----------
+            elif isinstance(widget, QCheckBox):
                 widget.setChecked(bool(value))
 
     @staticmethod
@@ -70,37 +95,31 @@ class FieldsUtility(QObject):
         """
         Obtiene los valores de los widgets y los devuelve en un diccionario.
 
-        Devuelve un diccionario con la forma:
-            {
-                "campo_bd": valor
-            }
+        Los valores se convierten a tipos nativos de Python.
         """
 
         data = {}
 
         for field, widget in fields.items():
-            # QLineEdit
-            if hasattr(widget, "text"):
+            if isinstance(widget, QLineEdit):
                 data[field] = widget.text().strip()
 
-            # QTextEdit
-            elif hasattr(widget, "toPlainText"):
+            elif isinstance(widget, (QTextEdit, QPlainTextEdit)):
                 data[field] = widget.toPlainText().strip()
 
-            # QComboBox
-            elif hasattr(widget, "currentText"):
+            elif isinstance(widget, QComboBox):
                 data[field] = widget.currentText()
 
-            # QSpinBox / QDoubleSpinBox
-            elif hasattr(widget, "value"):
+            elif isinstance(widget, (QSpinBox, QDoubleSpinBox)):
                 data[field] = widget.value()
 
-            # QDateEdit
-            elif hasattr(widget, "date"):
-                data[field] = widget.date().toString("yyyy-MM-dd")
+            elif isinstance(widget, QDateEdit):
+                data[field] = widget.date().toPython()
 
-            # QCheckBox
-            elif hasattr(widget, "isChecked"):
+            elif isinstance(widget, QDateTimeEdit):
+                data[field] = widget.dateTime().toPython()
+
+            elif isinstance(widget, QCheckBox):
                 data[field] = widget.isChecked()
 
         return data
