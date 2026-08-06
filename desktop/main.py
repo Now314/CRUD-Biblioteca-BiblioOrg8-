@@ -1,3 +1,4 @@
+# ruff: noqa: F401
 import sys
 
 from PySide6.QtWidgets import QApplication
@@ -5,6 +6,8 @@ from PySide6.QtWidgets import QApplication
 from manager.WindowManager import WindowManager
 
 from controllers.windows_controllers.main_controller import MainController
+
+import resources_rc
 
 
 def main():

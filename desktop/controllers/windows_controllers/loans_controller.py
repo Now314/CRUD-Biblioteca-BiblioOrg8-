@@ -83,6 +83,9 @@ class LoansController(QMainWindow, TablesController):
             hidden_columns=["id"],
         )
 
+    def new_register(self):
+        return None
+
     def closeEvent(self, event: QCloseEvent):
         self.manager.back()
         event.accept()

@@ -1,4 +1,4 @@
-from services.api_client import post
+from services.api_client import post, put
 
 class CRUDService:
 
@@ -19,3 +19,11 @@ class CRUDService:
         response = post(endpoint, data)
 
         return response is not None
+
+    @staticmethod
+    def update(endpoint: str, data: dict) -> bool:
+        """Edita un registro en la API."""
+
+        response = put(endpoint, data)
+
+        return response is not False

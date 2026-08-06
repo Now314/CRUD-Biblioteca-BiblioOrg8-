@@ -40,3 +40,17 @@ def post(endpoint: str, data: dict):
     except requests.RequestException as e:
         print(e)
         return None
+
+def put (endpoint: str, data: dict):
+    url = f"{API_URL}{endpoint}"
+    try:
+        response = requests.put(
+            url,
+            json=data,
+            timeout=30
+        )
+        response.raise_for_status()
+        return response.json()
+    except requests.RequestException as e:
+        print(e)
+        return None

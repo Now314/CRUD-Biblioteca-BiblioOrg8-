@@ -2,6 +2,8 @@
 
 from app.services.database_service import DatabaseService
 
+from app.database.schema_inspector import SchemaInspector
+
 
 def post_command(
     table: str,
@@ -18,6 +20,11 @@ def post_command(
         True si el registro fue creado correctamente.
     """
 
+    SchemaInspector.validate(
+        table=table,
+        columns=list(data.keys()),
+    )
+
     columns = ", ".join(data.keys())
 
     values = ", ".join(
@@ -32,7 +39,7 @@ def post_command(
 
     return DatabaseService.execute(
         sql,
-        data
+        data,
     )
 
 def post_loan_table(data: dict):

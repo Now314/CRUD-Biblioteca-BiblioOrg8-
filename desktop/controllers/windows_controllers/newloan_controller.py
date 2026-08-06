@@ -47,6 +47,8 @@ class NewLoanController(QMainWindow):
 
     def add_loan(self):
 
+    # Obtener datos y enviarlos a tabla prestamos.
+
         data = FieldsUtility.get_fields(
             {
                 "codigo": self.ui.codetxt,
@@ -61,6 +63,8 @@ class NewLoanController(QMainWindow):
 
         data["fecha_salida"] = fecha_salida.isoformat()
         data["fecha_devolucion"] = data["fecha_devolucion"].isoformat()
+
+    # Cambiar stock en principal
 
         success = CRUDService.create("/post_table/prestamos", data)
 
