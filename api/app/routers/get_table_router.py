@@ -1,6 +1,8 @@
 """Routers para método get"""
 
 from fastapi import APIRouter
+
+from app.services.database_service import DatabaseService
 from app.services.get_table_service import get_principal_table
 from app.services.get_table_service import get_prestamos_table
 
@@ -13,3 +15,8 @@ def get_principal_data():
 @router.get("/prestamos")
 def get_prestamos_data():
     return get_prestamos_table()
+
+@router.get("/health")
+def health():
+    DatabaseService.execute("SELECT 1")
+    return {"status": "ok"}
