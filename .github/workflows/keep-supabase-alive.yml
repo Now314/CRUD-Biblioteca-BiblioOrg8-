@@ -1,0 +1,19 @@
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    # Run every day at 12:00 UTC
+    - cron: "0 12 * * *"
+
+  # Allows manual execution from GitHub
+  workflow_dispatch:
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call Supabase endpoint
+        run: |
+          curl --fail --silent --show-error \
+            "${{ secrets.SUPABASE_KEEP_ALIVE_URL }}"

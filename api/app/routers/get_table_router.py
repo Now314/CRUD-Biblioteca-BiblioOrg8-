@@ -18,5 +18,5 @@ def get_prestamos_data():
 
 @router.get("/health")
 def health():
-    DatabaseService.execute("SELECT 1")
+    DatabaseService.ping()
     return {"status": "ok"}

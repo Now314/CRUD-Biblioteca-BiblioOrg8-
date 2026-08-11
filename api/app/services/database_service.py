@@ -61,3 +61,13 @@ class DatabaseService:
 
         finally:
             db.close()
+
+    @staticmethod
+    def ping() -> bool:
+        db = SessionLocal()
+
+        try:
+            db.execute(text("SELECT 1"))
+            return True
+        finally:
+            db.close()

@@ -21,3 +21,5 @@ def get_prestamos_table():
     return DatabaseService.fetch_all(
         "SELECT * FROM prestamos"
     )
+
+
