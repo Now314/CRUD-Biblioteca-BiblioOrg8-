@@ -6,7 +6,7 @@
 
 > Sistema para la gestión de la bibloteca de un instituto bíblico utilizando Python con **FastAPI** y **PostgreSQL**.
 
-BiblioOrg es una API REST que permite administrar estudiantes, profesores, asignaturas, inscripciones, calificaciones y pagos mediante una arquitectura limpia y escalable.
+BiblioOrg es un Sistema de gestión de bibliotecas desarrollado con Python y PySide6, diseñado con una arquitectura modular preparada para integrar PostgreSQL, FastAPI y despliegue en la nube. Todo mediante una arquitectura limpia y escalable.
 
 ---
 
