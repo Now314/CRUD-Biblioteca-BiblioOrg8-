@@ -1,3 +1,4 @@
+from services.api_client import delete as delete_request
 from services.api_client import post, put
 
 class CRUDService:
@@ -26,4 +27,12 @@ class CRUDService:
 
         response = put(endpoint, data)
 
-        return response is not False
+        return response is not None and response is not False
+
+    @staticmethod
+    def delete(endpoint: str) -> bool:
+        """Elimina un registro mediante la API."""
+
+        response = delete_request(endpoint)
+
+        return response is not None and response is not False

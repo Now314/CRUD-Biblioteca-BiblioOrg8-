@@ -54,3 +54,15 @@ def put (endpoint: str, data: dict):
     except requests.RequestException as e:
         print(e)
         return None
+
+def delete(endpoint: str):
+    """Elimina un registro en la API y devuelve la respuesta JSON."""
+
+    url = f"{API_URL}{endpoint}"
+    try:
+        response = requests.delete(url, timeout=30)
+        response.raise_for_status()
+        return response.json()
+    except requests.RequestException as e:
+        print(e)
+        return None

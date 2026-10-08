@@ -1,7 +1,12 @@
 """Servicios para editar registros en la base de datos."""
 
 from app.database.schema_inspector import SchemaInspector
-from app.services.database_service import DatabaseService
+from app.database.session import SessionLocal
+from sqlalchemy import text
+
+
+class RegisterNotFoundError(Exception):
+    """No existe el registro que se intenta actualizar."""
 
 
 def put_table(
@@ -26,6 +31,9 @@ def put_table(
         columns=list(data.keys()),
     )
 
+    if not data:
+        raise ValueError("Debe enviar al menos un campo para actualizar.")
+
     set_clause = ", ".join(
         f"{column} = :{column}"
         for column in data
@@ -42,7 +50,12 @@ def put_table(
         "id": register_id,
     }
 
-    return DatabaseService.execute(
-        sql,
-        params,
-    )
+    with SessionLocal.begin() as db:
+        result = db.execute(text(sql), params)
+
+        if result.rowcount != 1:
+            raise RegisterNotFoundError(
+                f"No existe un registro con id '{register_id}'."
+            )
+
+    return True

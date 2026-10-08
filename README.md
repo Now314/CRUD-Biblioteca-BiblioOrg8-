@@ -12,9 +12,11 @@ BiblioOrg es una aplicación de escritorio para consultar el catálogo de una bi
 - Ver los préstamos registrados.
 - Registrar préstamos.
 - Descontar una unidad del stock al prestar un libro. El préstamo se rechaza si el libro no existe o no tiene stock; el descuento y el alta se realizan en una misma transacción.
+- Editar los datos de una persona y las fechas de un préstamo.
+- Eliminar un préstamo y reponer una unidad al stock dentro de una misma transacción.
 - Consultar el estado de la API y de su conexión con la base de datos.
 
-La edición y eliminación de préstamos y la lista de lecturas todavía están incompletas.
+La lista de lecturas todavía está incompleta.
 
 ## Estructura
 
@@ -81,8 +83,9 @@ El cliente HTTP está configurado en `desktop/services/api_client.py`. Por defec
 | `GET` | `/get_table/prestamos` | Devuelve los préstamos |
 | `POST` | `/post_table/prestamos` | Descuenta stock y registra un préstamo |
 | `PUT` | `/put_table/prestamos?register_id=<id>` | Actualiza un préstamo |
+| `DELETE` | `/delete_table/prestamos/<id>` | Elimina un préstamo y repone el stock |
 
-El alta de préstamo espera un JSON con los campos del registro, incluido `codigo`, que identifica el libro en `principal`. El esquema real de PostgreSQL debe incluir la columna `stock` en esa tabla. Si el libro no existe o no tiene stock, el endpoint responde `409 Conflict` y no crea el préstamo.
+El alta de préstamo espera un JSON con los campos del registro, incluido `codigo`, que identifica el libro en `principal`. El esquema real de PostgreSQL debe incluir la columna `stock` en esa tabla. Si el libro no existe o no tiene stock, el endpoint responde `409 Conflict` y no crea el préstamo. La eliminación repone el stock; la edición desde el escritorio no permite cambiar el libro asociado.
 
 ## Notas de desarrollo
 
