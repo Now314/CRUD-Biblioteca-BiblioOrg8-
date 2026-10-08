@@ -5,6 +5,7 @@ from PySide6.QtWidgets import QInputDialog, QMainWindow
 from controllers.utilities.fields_utility import FieldsUtility
 from controllers.utilities.notifications_utility import NotificationsUtility
 from controllers.utilities.tables_controller import TablesController
+from controllers.windows_controllers.history_controller import HistoryController
 from services.api_client import get
 from services.crud_service import CRUDService
 from ui.ui_loans import Ui_LoansWindow
@@ -32,6 +33,7 @@ class LoansController(QMainWindow, TablesController):
         self.ui.addbtn.clicked.connect(self.add_loan)
         self.ui.editbtn.clicked.connect(self.edit_loan)
         self.ui.deletbtn.clicked.connect(self.delete_loan)
+        self.ui.Historybtn.clicked.connect(self.go_history)
 
         self.load_data()
 
@@ -253,6 +255,9 @@ class LoansController(QMainWindow, TablesController):
             NotificationsUtility.show_error(
                 self, "No se pudo eliminar el préstamo ni modificar el stock."
             )
+
+    def go_history(self):
+        self.manager.show(HistoryController)
 
     def closeEvent(self, event: QCloseEvent):
         self.manager.back()

@@ -10,6 +10,7 @@ BiblioOrg es una aplicación de escritorio para consultar el catálogo de una bi
 
 - Consultar y buscar libros del catálogo.
 - Ver los préstamos registrados.
+- Consultar y buscar el historial de préstamos que permanecen registrados.
 - Registrar préstamos.
 - Descontar una unidad del stock al prestar un libro. El préstamo se rechaza si el libro no existe o no tiene stock; el descuento y el alta se realizan en una misma transacción.
 - Editar los datos de una persona y las fechas de un préstamo.
@@ -17,6 +18,8 @@ BiblioOrg es una aplicación de escritorio para consultar el catálogo de una bi
 - Consultar el estado de la API y de su conexión con la base de datos.
 
 La lista de lecturas todavía está incompleta.
+
+La ventana de historial consulta los registros actuales de `prestamos`. Como la eliminación borra el préstamo de esa tabla, los préstamos eliminados no aparecen en el historial.
 
 ## Estructura
 
