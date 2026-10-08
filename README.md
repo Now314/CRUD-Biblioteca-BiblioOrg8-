@@ -10,16 +10,16 @@ BiblioOrg es una aplicación de escritorio para consultar el catálogo de una bi
 
 - Consultar y buscar libros del catálogo.
 - Ver los préstamos registrados.
-- Consultar y buscar el historial de préstamos que permanecen registrados.
+- Consultar y buscar los préstamos archivados en el historial.
 - Registrar préstamos.
 - Descontar una unidad del stock al prestar un libro. El préstamo se rechaza si el libro no existe o no tiene stock; el descuento y el alta se realizan en una misma transacción.
 - Editar los datos de una persona y las fechas de un préstamo.
-- Eliminar un préstamo y reponer una unidad al stock dentro de una misma transacción.
+- Archivar un préstamo en la tabla `historial`, eliminarlo de `prestamos` y reponer una unidad al stock dentro de una misma transacción.
 - Consultar el estado de la API y de su conexión con la base de datos.
 
 La lista de lecturas todavía está incompleta.
 
-La ventana de historial consulta los registros actuales de `prestamos`. Como la eliminación borra el préstamo de esa tabla, los préstamos eliminados no aparecen en el historial.
+La ventana de historial consulta la tabla persistente `historial`. La API crea esa tabla en PostgreSQL si aún no existe. Los préstamos eliminados antes de incorporar el archivo no se pueden recuperar automáticamente.
 
 ## Estructura
 
@@ -84,17 +84,19 @@ El cliente HTTP está configurado en `desktop/services/api_client.py`. Por defec
 | `GET` | `/get_table/health` | Comprueba la conexión con PostgreSQL |
 | `GET` | `/get_table/principal` | Devuelve el catálogo |
 | `GET` | `/get_table/prestamos` | Devuelve los préstamos |
+| `GET` | `/get_table/historial` | Devuelve los préstamos archivados |
 | `POST` | `/post_table/prestamos` | Descuenta stock y registra un préstamo |
 | `PUT` | `/put_table/prestamos?register_id=<id>` | Actualiza un préstamo |
-| `DELETE` | `/delete_table/prestamos/<id>` | Elimina un préstamo y repone el stock |
+| `DELETE` | `/delete_table/prestamos/<id>` | Archiva y elimina un préstamo, y repone el stock |
 
-El alta de préstamo espera un JSON con los campos del registro, incluido `codigo`, que identifica el libro en `principal`. El esquema real de PostgreSQL debe incluir la columna `stock` en esa tabla. Si el libro no existe o no tiene stock, el endpoint responde `409 Conflict` y no crea el préstamo. La eliminación repone el stock; la edición desde el escritorio no permite cambiar el libro asociado.
+El alta de préstamo espera un JSON con los campos del registro, incluido `codigo`, que identifica el libro en `principal`. El esquema real de PostgreSQL debe incluir la columna `stock` en esa tabla. Si el libro no existe o no tiene stock, el endpoint responde `409 Conflict` y no crea el préstamo. Al eliminar, la API copia el registro completo a `historial` con su fecha de archivo, lo quita de `prestamos` y repone el stock en una sola transacción. La edición desde el escritorio no permite cambiar el libro asociado.
 
 ## Notas de desarrollo
 
 - La API carga `DATABASE_URL` desde `api/.env`.
 - `api/.env` está excluido del control de versiones; utiliza `.env.example` como guía.
 - La API valida nombres de tablas y columnas inspeccionando el esquema de PostgreSQL.
+- La API crea `historial` a partir de la estructura de `prestamos` cuando se consulta el historial o se elimina un préstamo.
 - Este repositorio no contiene instrucciones de migración de la base de datos: las tablas deben existir antes de iniciar la aplicación.
 
 ## Autor

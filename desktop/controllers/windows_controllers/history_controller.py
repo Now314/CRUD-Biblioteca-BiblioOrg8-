@@ -24,7 +24,7 @@ class HistoryController(QMainWindow, TablesController):
         self.load_data()
 
     def load_data(self):
-        data = get("/get_table/prestamos")
+        data = get("/get_table/historial")
         if data is None:
             NotificationsUtility.show_error(
                 self, "No se pudo cargar el historial desde el servidor."
@@ -37,7 +37,7 @@ class HistoryController(QMainWindow, TablesController):
             data,
             hidden_columns=["id"],
         )
-        self.ui.statusbar.showMessage(f"Préstamos registrados: {len(data)}")
+        self.ui.statusbar.showMessage(f"Préstamos archivados: {len(data)}")
 
     def search(self, text):
         self.filter_table(
@@ -58,7 +58,7 @@ class HistoryController(QMainWindow, TablesController):
             hidden_columns=["id"],
         )
         data = self.ui.tableView.property("original_data") or []
-        self.ui.statusbar.showMessage(f"Préstamos registrados: {len(data)}")
+        self.ui.statusbar.showMessage(f"Préstamos archivados: {len(data)}")
 
     def closeEvent(self, event: QCloseEvent):
         self.manager.back()

@@ -4,6 +4,7 @@ from sqlalchemy import text
 
 from app.database.schema_inspector import SchemaInspector
 from app.database.session import SessionLocal
+from app.services.history_service import ensure_history_table
 
 
 class LoanNotFoundError(Exception):
@@ -15,14 +16,15 @@ class BookNotFoundError(Exception):
 
 
 def delete_loan(register_id: str) -> bool:
-    """Elimina un préstamo y repone una unidad de stock en una transacción."""
+    """Archiva y elimina un préstamo, y repone el stock atómicamente."""
 
     SchemaInspector.validate(table="prestamos", columns=["id", "codigo"])
     SchemaInspector.validate(table="principal", columns=["codigo", "stock"])
 
     with SessionLocal.begin() as db:
+        ensure_history_table(db)
         loan = db.execute(
-            text("SELECT codigo FROM prestamos WHERE id = :id FOR UPDATE"),
+            text("SELECT * FROM prestamos WHERE id = :id FOR UPDATE"),
             {"id": register_id},
         ).mappings().first()
 
@@ -30,6 +32,24 @@ def delete_loan(register_id: str) -> bool:
             raise LoanNotFoundError(
                 f"No existe un préstamo con id '{register_id}'."
             )
+
+        loan_data = dict(loan)
+        archive_columns = [
+            column for column in loan_data if column != "fecha_eliminacion"
+        ]
+        column_list = ", ".join(archive_columns + ["fecha_eliminacion"])
+        value_list = ", ".join(
+            [f":{column}" for column in archive_columns] + ["CURRENT_TIMESTAMP"]
+        )
+        db.execute(
+            text(
+                f"""
+                INSERT INTO historial ({column_list})
+                VALUES ({value_list})
+                """
+            ),
+            {column: loan_data[column] for column in archive_columns},
+        )
 
         deleted = db.execute(
             text("DELETE FROM prestamos WHERE id = :id"),
@@ -49,7 +69,7 @@ def delete_loan(register_id: str) -> bool:
                 WHERE codigo = :codigo
                 """
             ),
-            {"codigo": loan["codigo"]},
+            {"codigo": loan_data["codigo"]},
         )
 
         if restored.rowcount != 1:
