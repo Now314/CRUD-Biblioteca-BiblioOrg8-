@@ -10,7 +10,7 @@ def get_principal_table():
     SchemaInspector.validate(table="principal")
 
     return DatabaseService.fetch_all(
-        "SELECT * FROM principal"
+        "SELECT * FROM principal ORDER BY codigo ASC"
     )
 
 def get_prestamos_table():
